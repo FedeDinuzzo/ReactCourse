@@ -12,6 +12,7 @@ function App() {
     let increment = 0;
     const interval = setInterval(() => {
       increment += 1;
+      // ejecuta un metodo
       setCount((count) => count + 1);
 
       // Limpiamos el intervalo después de 3 incrementos
