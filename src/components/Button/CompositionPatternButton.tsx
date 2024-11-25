@@ -1,30 +1,22 @@
-import { useState, useEffect } from "react";
-import { shareValueChildren } from "../../services";
+import { ReactNode } from "react";
 
 interface Props {
-  label: string;
+  children: ReactNode;
   parentMethod: () => void;
 }
 
-export const ChildrenButton = ({ label }: Pick<Props, "label">) => {
-  const service = shareValueChildren;
-  const [labelState, setLabelState] = useState(service.getValue());
+interface ChildrenProps {
+  children: ReactNode;
+}
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLabelState(service.getValue());
-    }, 1000);
-  }, [service]);
-
-  return <div>{labelState}</div>;
+export const ColorRed = ({ children }: ChildrenProps) => {
+  return <div style={{ color: "red" }}>{children}</div>;
 };
 
-export const CompositionPatternButton = ({ label, parentMethod }: Props) => {
+export const CompositionPatternButton = ({ children, parentMethod }: Props) => {
   return (
     <>
-      <button onClick={parentMethod}>
-        <ChildrenButton label={label} />
-      </button>
+      <button onClick={parentMethod}>{children}</button>
     </>
   );
 };
