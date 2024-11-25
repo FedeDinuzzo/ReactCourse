@@ -1,2 +1,2 @@
 // Indice para facilitar importaciones
-export * from "./useFetch";
+export * from "./useFetch.ts";

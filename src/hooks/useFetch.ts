@@ -13,6 +13,7 @@ export function useFetch<T>(url: string): Params<T> {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    // AbortController sirve para permitir la cancelación de una solicitud de fetch si el componente que utiliza este hook se desmonta o si el valor de la dependencia url cambia antes de que la solicitud termine.
     const controller = new AbortController();
 
     setLoading(true);
