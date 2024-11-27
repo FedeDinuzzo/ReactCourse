@@ -1,5 +1,6 @@
 import "./App.css";
 import { CompositionPatternButton, ColorRed, AppForm } from "./components";
+import { GlobalProvider } from "../context/global.context";
 
 function App() {
   // validaciones de form submit -> etc
@@ -12,12 +13,14 @@ function App() {
   };
 
   return (
-    <CompositionPatternButton parentMethod={handleClick}>
-      <ColorRed>My Label</ColorRed>
-      <AppForm>
-        <button type="submit" onClick={submit}></button>
-      </AppForm>
-    </CompositionPatternButton>
+    <GlobalProvider>
+      <CompositionPatternButton parentMethod={handleClick}>
+        <ColorRed>My Label</ColorRed>
+        <AppForm>
+          <button type="submit" onClick={submit}></button>
+        </AppForm>
+      </CompositionPatternButton>
+    </GlobalProvider>
   );
 }
 

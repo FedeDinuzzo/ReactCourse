@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useGlobalContext } from "../../context/global.context";
 
 interface Props {
   children: ReactNode;
@@ -10,13 +11,27 @@ interface ChildrenProps {
 }
 
 export const ColorRed = ({ children }: ChildrenProps) => {
-  return <div style={{ color: "red" }}>{children}</div>;
+  const { value } = useGlobalContext();
+
+  return (
+    <>
+      <div style={{ color: "red" }}>
+        {value}:{children}
+      </div>
+    </>
+  );
 };
 
 export const CompositionPatternButton = ({ children, parentMethod }: Props) => {
+  const { setValue } = useGlobalContext();
+
+  const handleClick = () => {
+    setValue(10);
+    parentMethod();
+  };
   return (
     <>
-      <button onClick={parentMethod}>{children}</button>
+      <button onClick={handleClick}>{children}</button>
     </>
   );
 };
