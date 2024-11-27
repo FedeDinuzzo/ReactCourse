@@ -1,6 +1,6 @@
 import "./App.css";
 import { CompositionPatternButton, ColorRed, AppForm } from "./components";
-import { GlobalProvider } from "../context/global.context";
+import { GlobalProvider } from "./context/global.context";
 
 function App() {
   // validaciones de form submit -> etc

@@ -4,15 +4,12 @@ import { useState, createContext, ReactNode, useContext } from "react";
 // Todo lo que se encuentra dentro del provider escuchar al contexto
 // El contexto sirve para compartir informacion entre componentes hermanos que no tienen una conexion directa y por ejemplo para el manejo de sesiones
 interface GlobalContextType {
-  value: number;
+  value: number | null;
   setValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
-// Reiniciar los valores del contexto de ser necesario
-const EmptyGlobalState: number = 0;
-
 export const GlobalContext = createContext<GlobalContextType>({
-  value: 0,
+  value: null,
   setValue: () => {},
 });
 
@@ -25,6 +22,9 @@ export const useGlobalContext = () => {
 
   return context;
 };
+
+// Reiniciar los valores del contexto de ser necesario
+const EmptyGlobalState: number = 0;
 
 interface GlobalProps {
   children: ReactNode;
