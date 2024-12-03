@@ -10,6 +10,7 @@ interface ChildrenProps {
   children: ReactNode;
 }
 
+// Usamos el contexto en ColorRed y en CompositionPatternButton
 export const ColorRed = ({ children }: ChildrenProps) => {
   const { value } = useGlobalContext();
 
@@ -29,6 +30,7 @@ export const CompositionPatternButton = ({ children, parentMethod }: Props) => {
     setValue(10);
     parentMethod();
   };
+
   return (
     <>
       <button onClick={handleClick}>{children}</button>
