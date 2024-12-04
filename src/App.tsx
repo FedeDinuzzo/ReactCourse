@@ -1,8 +1,8 @@
 import "./App.css";
-import { BookReader } from "./appClases/BookReader";
+import { ShoppingCart } from "./appClases/UseMemo";
 
 function App() {
-  return <BookReader />;
+  return <ShoppingCart />;
 }
 
 export default App;
