@@ -1,8 +1,8 @@
 import "./App.css";
-import CustomForm from "./appClases/CustomForm";
+import { BookReader } from "./appClases/BookReader";
 
 function App() {
-  return <CustomForm />;
+  return <BookReader />;
 }
 
 export default App;
