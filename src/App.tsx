@@ -1,8 +1,8 @@
 import "./App.css";
-import { ShoppingCart } from "./appClases/UseMemo";
+import { PhoneBook } from "./appClases/UseCallback";
 
 function App() {
-  return <ShoppingCart />;
+  return <PhoneBook />;
 }
 
 export default App;
