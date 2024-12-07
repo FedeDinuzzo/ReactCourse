@@ -6,7 +6,7 @@
 // En vez de marcarlo continuamente lo vamos a almacenar en los contactos del telefono
 // A menos que el numero cambie siempre utilizo el mismo contacto.
 
-import { useCallback, useState } from "react";
+import { useCallback, memo, useState } from "react";
 
 interface Contact {
   id: number;
@@ -19,7 +19,9 @@ interface ContactProps {
   onCall: (phone: { phone: string }) => void;
 }
 
-const ContactCard = ({ contact, onCall }: ContactProps) => {
+// No es necesario memorizar realmente porque no es algo costoso
+// Pero para la logica tiene sentido
+const ContactCard = memo(({ contact, onCall }: ContactProps) => {
   console.log(`Renderizando contacto ${contact.name}`);
 
   return (
@@ -31,7 +33,7 @@ const ContactCard = ({ contact, onCall }: ContactProps) => {
       </div>
     </>
   );
-};
+});
 
 export const PhoneBook = () => {
   const [contacts, setContacts] = useState<Contact[]>([
