@@ -1,6 +1,6 @@
 import "./App.css";
-import { Modal } from "./appClases/Portals/";
-import { useModalContext } from "./appClases/Portals";
+import { Modal } from "./appClases/Portals";
+import { useModalContext } from "./appClases/Portals/context";
 
 function App() {
   const { setState } = useModalContext();

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useModalContext } from "./UseModalContext";
+import { useModalContext } from "./context";
 import "./Modal.css";
 
 interface Props {
@@ -44,7 +44,7 @@ export const Modal = ({ children }: Props) => {
 
   return createPortal(
     <div className="overlay" onClick={closeModal}>
-      <div ref={modalRef} className="modal" onClick={handleContentClick}>
+      <div className="modal" onClick={handleContentClick} ref={modalRef}>
         {children}
         <button className="close-button" onClick={closeModal}>
           Close
