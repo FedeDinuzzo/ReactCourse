@@ -1,18 +1,12 @@
 import "./App.css";
-import { Modal } from "./appClases/Portals";
-import { useModalContext } from "./appClases/Portals/context";
+import { Undefined, Effect, Promises } from "./components";
 
 function App() {
-  const { setState } = useModalContext();
-
-  const openModal = () => setState(true);
-
   return (
     <>
-      <Modal>
-        <h2>Soy un Modal</h2>
-      </Modal>
-      <button onClick={openModal}>Abrir Modal</button>
+      {/* <Undefined /> */}
+      {/* <Effect /> */}
+      <Promises />
     </>
   );
 }
