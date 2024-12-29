@@ -6,14 +6,14 @@ export const Promises = () => {
   const [data, setData] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      throw new Error("Promise has failed");
-    };
-
-    fetchData().catch((err) => {
-      setData(err.message);
-      throw new Error("Promise now has failed");
-    });
+    // NO LO TOMA ERRORBOUNDARY
+    // const fetchData = async () => {
+    //   throw new Error("Promise has failed");
+    // };
+    // fetchData().catch((err) => {
+    //   setData(err.message);
+    //   throw new Error("Promise now has failed");
+    // });
   }, []);
 
   return <div>{data}</div>;
