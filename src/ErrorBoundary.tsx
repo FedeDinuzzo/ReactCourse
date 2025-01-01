@@ -8,6 +8,8 @@
 // Detecta errores de redireccionamiento
 // Detecta errores de renderizado en el servidor
 // Detecta errores de renderizado en el cliente
+
+// Se coloca en el main tsx para que envuelva a toda la app
 import React, { ReactNode, ErrorInfo } from "react";
 
 interface ErrorBoundaryState {
