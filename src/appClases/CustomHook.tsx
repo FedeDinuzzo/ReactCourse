@@ -1,5 +1,5 @@
 import "./App.css";
-import { useFetch } from "./hooks";
+import { useFetch } from "../hooks";
 
 const url = "ttps://api.example.com/data";
 
