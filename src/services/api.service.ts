@@ -9,7 +9,7 @@ export const getCharacterNormal = (id: number) => {
   return axios.get<Character>(`${BASE_URL}/character/${id}`);
 };
 
-export const getCharacter = (id: number): UseApiCall<Character> => {
+export const getCharacter = (id: number): UseApiCall<Character, number> => {
   const controller = loadAbort();
 
   return {
@@ -19,7 +19,7 @@ export const getCharacter = (id: number): UseApiCall<Character> => {
 };
 
 // Devuelve una promesa
-export const newCharacter = (character: Character): UseApiCall<null> => {
+export const newCharacter = (character: Character): UseApiCall<null, Character> => {
   const controller = loadAbort();
   return {
     call: axios.post<null>(`${BASE_URL}/character`, character, { signal: controller.signal }),

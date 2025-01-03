@@ -15,7 +15,8 @@ function App() {
   // useEffect(() => {
   //   fetchCharacter();
   // }, []);
-  const { loading, error, data, fetch } = useApi<Character>(getCharacter(1), { autoFetch: true });
+  // Si viene autofetch ya tiene la data
+  const { loading, error, data, fetch } = useApi<Character, number>(getCharacter(1), { autoFetch: true, params: 1 });
 
   if (loading) {
     return <p>Loading</p>;
@@ -28,7 +29,7 @@ function App() {
   return (
     <>
       {JSON.stringify(data)}
-      <button onClick={fetch}>Manual Fetch</button>
+      <button onClick={() => fetch(2)}>Manual Fetch</button>
     </>
   );
 }

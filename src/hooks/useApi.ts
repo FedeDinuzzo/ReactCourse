@@ -16,9 +16,9 @@ import { useCallback, useEffect, useState } from "react";
 import { UseApiCall } from "../models/useApi.model";
 
 // Tipo de opciones para el hook, define si la llamada se ejecutará automáticamente al montar el componente.
-type UseApiOptions = {
+type UseApiOptions<P> = {
   autoFetch?: boolean; // autoFetch indica si el fetch debe ejecutarse automáticamente.
-};
+} & (P extends null ? { params?: P } : { params: P }); // Si P es nulo, params es opcional; de lo contrario, es obligatorio.
 
 // Data<T> representa el estado de los datos; puede ser del tipo T o nulo.
 type Data<T> = T | null;
@@ -27,42 +27,46 @@ type Data<T> = T | null;
 type CustomError = Error | null;
 
 // Interface que define lo que devolverá el hook useApi.
-interface UseApiResult<T> {
+interface UseApiResult<T, P> {
+  // T de generico y P de parametros
   loading: boolean; // Indica si la solicitud está en curso.
   data: Data<T>; // Contiene los datos devueltos por la solicitud.
   error: CustomError; // Contiene un error, si ocurrió durante la solicitud.
-  fetch(): void; // Método para iniciar manualmente la solicitud.
+  fetch: (param: P) => void; // Método para iniciar manualmente la solicitud.
 }
 
 // Definición del hook personalizado useApi
-export const useApi = <T>(
-  apiCall: UseApiCall<T>, // apiCall es una función que retorna una promesa y un AbortController.
-  options?: UseApiOptions // Opciones como autoFetch para personalizar el comportamiento.
-): UseApiResult<T> => {
+export const useApi = <T, P>(
+  apiCall: (param?: P) => UseApiCall<T>, // apiCall es una función que retorna una promesa y un AbortController.
+  options?: UseApiOptions<P> // Opciones como autoFetch para personalizar el comportamiento.
+): UseApiResult<T, P> => {
   const [loading, setLoading] = useState<boolean>(false); // Estado de carga.
   const [data, setData] = useState<Data<T>>(null); // Estado de los datos devueltos.
   const [error, setError] = useState<CustomError>(null); // Estado del error.
 
   // useCallback se usa para evitar la recreación innecesaria de la función fetch en cada render.
   // Esto es útil porque la dependencia "apiCall" puede ser una referencia constante.
-  const fetch = useCallback(() => {
-    const { call, controller } = apiCall; // Ejecuta la llamada a la API y obtiene el controlador para cancelarla.
-    setLoading(true); // Inicia el estado de carga.
-    call
-      .then((response) => {
-        setData(response.data); // Guarda los datos obtenidos.
-        setError(null); // Limpia cualquier error previo.
-      })
-      .catch((error) => {
-        setError(error); // Guarda el error ocurrido.
-      })
-      .finally(() => {
-        setLoading(false); // Indica que terminó la solicitud, sea exitosa o no.
-      });
+  const fetch = useCallback(
+    (param?: P) => {
+      const { call, controller } = apiCall(param); // Ejecuta la llamada a la API y obtiene el controlador para cancelarla.
+      setLoading(true); // Inicia el estado de carga.
+      call
+        .then((response) => {
+          setData(response.data); // Guarda los datos obtenidos.
+          setError(null); // Limpia cualquier error previo.
+        })
+        .catch((error) => {
+          setError(error); // Guarda el error ocurrido.
+        })
+        .finally(() => {
+          setLoading(false); // Indica que terminó la solicitud, sea exitosa o no.
+        });
 
-    // Devuelve una función de limpieza que cancela la solicitud si el componente se desmonta.
-    return () => controller.abort();
-  }, [apiCall]);
+      // Devuelve una función de limpieza que cancela la solicitud si el componente se desmonta.
+      return () => controller.abort();
+    },
+    [apiCall]
+  );
 
   // Si la opción autoFetch es verdadera, ejecuta automáticamente el fetch al montar el componente.
   useEffect(() => {
