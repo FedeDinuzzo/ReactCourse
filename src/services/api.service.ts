@@ -1,15 +1,9 @@
-import axios from "axios";
+const BASE_URL = "https://rickandmortyapi.com/api";
 import { Character, UseApiCall } from "../models";
 import { loadAbort } from "../utilities";
+import axios from "axios";
 
-const BASE_URL = "https://rickandmortyapi.com/api";
-
-// Ejemplo Comun
-export const getCharacterNormal = (id: number) => {
-  return axios.get<Character>(`${BASE_URL}/character/${id}`);
-};
-
-export const getCharacter = (id: number): UseApiCall<Character, number> => {
+export const getCharacter = (id: number): UseApiCall<Character> => {
   const controller = loadAbort();
 
   return {
@@ -18,11 +12,11 @@ export const getCharacter = (id: number): UseApiCall<Character, number> => {
   };
 };
 
-// Devuelve una promesa
-export const newCharacter = (character: Character): UseApiCall<null, Character> => {
+export const newCharacter = (character: Character): UseApiCall<null> => {
   const controller = loadAbort();
+
   return {
-    call: axios.post<null>(`${BASE_URL}/character`, character, { signal: controller.signal }),
-    controller, // axios.get returns a promise
+    call: axios.post<null>(`${BASE_URL}/characters`, character, { signal: controller.signal }),
+    controller,
   };
 };

@@ -1,8 +1,8 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { getCharacterNormal, getCharacter } from "../services/api.service";
-import { emptyCharacter, Character } from "../models";
-import { useApi } from "../hooks/useApi";
+import { getCharacterNormal, getCharacter } from "./services/api.service";
+import { emptyCharacter, Character } from "./models";
+import { useApi } from "./hooks/useApi";
 
 function App() {
   // const [data, setData] = useState<Character>(emptyCharacter);
@@ -16,7 +16,7 @@ function App() {
   //   fetchCharacter();
   // }, []);
   // Si viene autofetch ya tiene la data
-  const { loading, error, data, fetch } = useApi<Character, number>(getCharacter(1), { autoFetch: true, params: 1 });
+  const { loading, error, data, fetch } = useApi<Character, number>(getCharacter, { autoFetch: false, params: 1 });
 
   if (loading) {
     return <p>Loading</p>;
