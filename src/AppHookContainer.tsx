@@ -7,17 +7,15 @@ import App from "./App";
 
 function AppHookContainer() {
   return (
-    <AppRouter>
+    <ErrorBoundary>
       <GlobalProvider>
-        <ErrorBoundary>
-          <ModalProvider>
-            <App>
-              <AppRouter />
-            </App>
-          </ModalProvider>
-        </ErrorBoundary>
+        <ModalProvider>
+          <App>
+            <AppRouter />
+          </App>
+        </ModalProvider>
       </GlobalProvider>
-    </AppRouter>
+    </ErrorBoundary>
   );
 }
 

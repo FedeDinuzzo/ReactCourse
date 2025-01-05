@@ -5,6 +5,7 @@ import { PrivateGuard } from "./src/appClases/ReactRouterDom/guard/PrivateGuard"
 import { PrivateRouter } from "./src/appClases/ReactRouterDom/private/PrivateRouter";
 // import { AdminGuard } from "./src/appClases/ReactRouterDom/guard/AdminGuard";
 import RoutesWithNotFound from "./src/components/RoutesWithNotFound";
+import { AppRoutes } from "./src/models/routes.model";
 
 export const AppRouter = () => {
   return (
@@ -12,11 +13,11 @@ export const AppRouter = () => {
     <BrowserRouter>
       <RoutesWithNotFound>
         {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/" element={<Navigate to={"/login"} />} />
+        <Route path="/" element={<Navigate to={AppRoutes.login} />} />
         <Route path="/Login" element={<Login />} />
 
         <Route element={<PrivateGuard />}>
-          <Route path="/private/*" element={<PrivateRouter />} />
+          <Route path={`${AppRoutes.private.root}/*`} element={<PrivateRouter />} />
           {/* * signfica lo que venga despues, ingesa */}
 
           {/* <Route element={<AdminGuard />}> */}
